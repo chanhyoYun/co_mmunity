@@ -8,7 +8,7 @@ from django.core.exceptions import ValidationError
 class SignupSerializer(serializers.ModelSerializer):
     class Meta:
         model = MyUser
-        fields = ['id', 'email', 'password', 'profile_image']
+        fields = ['id', 'email', 'password', 'profile_image', 'following']
 
     def create(self, validated_data):
         validated_data['password'] = make_password(validated_data['password'])

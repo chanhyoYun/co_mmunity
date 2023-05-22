@@ -33,7 +33,8 @@ class MyUser(AbstractBaseUser):
     )
     
     profile_image = models.CharField(blank=False, max_length=255)
-    
+    followings = models.ManyToManyField('self', symmetrical=False, related_name='followers')
+
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
 

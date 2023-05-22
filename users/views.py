@@ -40,3 +40,15 @@ class ProfileView(APIView):
 
 class CustomTokenObtainPairView(TokenObtainPairView):
     serializer_class = MyTokenObtainPairSerializer
+
+
+class FollowView(APIView):
+    def post(self, request, user_id):
+        you = get_object_or_404(MyUser, id=user_id)
+        me = request.user
+        if me in you.followers.all():
+            you.followers.remove(me)
+            return Response("unfollow", status=status.HTTP_200_OK)
+        else:
+            you.followers.add(me)
+            return Response("follow", status=status.HTTP_200_OK)
