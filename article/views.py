@@ -36,4 +36,12 @@ class DetailComments(APIView):
         else:
             return Response('권한이 없다.', status=status.HTTP_403_FORBIDDEN)
         
-        
+# class LikeView(APIView):  #좋아요 기능. 현재 Article모델이 없어서 주석처리
+#     def post(self, request, article_id):
+#         article = get_object_or_404(Article, id=article_id)
+#         if request.user in article.likes.all():
+#             article.likes.remove(request.user)
+#             return Response("like",status=status.HTTP_204_NO_CONTENT)
+#         else:
+#             article.likes.add(request.user)
+#             return Response("unlike",status=status.HTTP_204_NO_CONTENT)
