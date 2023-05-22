@@ -29,4 +29,4 @@ class ProfileView(APIView):
 
 class CustomTokenObtainPairView(TokenObtainPairView):
     serializer_class = MyTokenObtainPairSerializer
-    
+

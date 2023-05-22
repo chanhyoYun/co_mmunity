@@ -70,3 +70,4 @@ class UserAdmin(BaseUserAdmin):
 
 admin.site.register(MyUser, UserAdmin)
 admin.site.unregister(Group)
+
