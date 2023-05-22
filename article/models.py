@@ -1,5 +1,5 @@
 from django.db import models
-from user. models import users
+from users. models import users
 # Create your models here.
 class comments(models.Model):
     auther = models.ForeignKey(users, on_delete=models.CASCADE)
