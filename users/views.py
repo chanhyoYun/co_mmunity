@@ -8,7 +8,14 @@ from users.models import MyUser
 from rest_framework.permissions import IsAuthenticated
 
 class SignupView(APIView):
-    serializer_class = SignupSerializer
+    def post(self, request):
+        serializer = SignupSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({"message": "가입완료"}, status=status.HTTP_201_CREATED)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        
 
 class WithdrawView(APIView):
     permission_classes = [IsAuthenticated]

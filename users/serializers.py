@@ -5,12 +5,15 @@ from django.contrib.auth.hashers import make_password
 from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
 
+from users.text_to_image import text_to_image
+
 class SignupSerializer(serializers.ModelSerializer):
     class Meta:
         model = MyUser
-        fields = ['id', 'email', 'password', 'profile_image']
+        fields = ['id', 'email', 'password', 'profile_image', 'profile_image_url']
 
     def create(self, validated_data):
+        validated_data['profile_image_url'] = text_to_image(validated_data['profile_image'])
         validated_data['password'] = make_password(validated_data['password'])
         return super().create(validated_data)
 
