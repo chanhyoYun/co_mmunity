@@ -20,6 +20,7 @@ class ArticlesView(APIView):
         articles = Articles.objects.all()
         serializer = ArticleListSerializer(articles, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
+            
     
 class ArticleDetailView(APIView):
     def get(self, request, article_id):
@@ -65,7 +66,7 @@ class CommentsView(APIView):
 class DetailComments(APIView):
     def patch(self, request, comment_id, article_id):
         comment = get_object_or_404(Comments, id=comment_id)
-        if request.user == comment.user:
+        if request.user == comment.auther:
             serializer = CommentCreateSerializer(comment, data=request.data)
             if serializer.is_valid():
                 serializer.save()
@@ -88,7 +89,7 @@ class LikeView(APIView):  #좋아요 기능. 현재 Article모델이 없어서 �
         article = get_object_or_404(Articles, id=article_id)
         if request.user in article.likes.all():
             article.likes.remove(request.user)
-            return Response("like",status=status.HTTP_204_NO_CONTENT)
+            return Response("unlike",status=status.HTTP_204_NO_CONTENT)
         else:
             article.likes.add(request.user)
-            return Response("unlike",status=status.HTTP_204_NO_CONTENT)
+            return Response("like",status=status.HTTP_204_NO_CONTENT)

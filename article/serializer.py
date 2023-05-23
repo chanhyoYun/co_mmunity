@@ -24,7 +24,7 @@ class ArticleCreateSerializer(serializers.ModelSerializer):
         fields = ("title","content","image")
 
 class ArticleListSerializer(serializers.ModelSerializer):
-        class Meta:
-            model = Articles
-            fields = "__all__"
+    class Meta:
+        model = Articles
+        fields = "__all__"
 
