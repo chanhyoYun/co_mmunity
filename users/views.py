@@ -10,6 +10,13 @@ from rest_framework.permissions import IsAuthenticated
 class SignupView(APIView):
     serializer_class = SignupSerializer
 
+    def post(self, request):
+        serializer = self.serializer_class(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 class WithdrawView(APIView):
     permission_classes = [IsAuthenticated]
 
