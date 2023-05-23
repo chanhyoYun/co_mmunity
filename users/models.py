@@ -35,7 +35,7 @@ class MyUser(AbstractBaseUser):
     profile_image = models.CharField(blank=False, max_length=500)
     profile_image_url = models.URLField(blank=True, max_length=500)
     
-    followings = models.ManyToManyField('self', symmetrical=False, related_name='followers')
+    followings = models.ManyToManyField("self", symmetrical=False, related_name='followers', blank=True)
 
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
