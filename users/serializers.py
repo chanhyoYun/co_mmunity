@@ -10,7 +10,7 @@ from users.text_to_image import text_to_image
 class SignupSerializer(serializers.ModelSerializer):
     class Meta:
         model = MyUser
-        fields = ['id', 'email', 'password', 'profile_image', 'profile_image_url']
+        fields = ['id', 'email', 'password', 'profile_image', 'profile_image_url', 'following']
 
     def create(self, validated_data):
         validated_data['profile_image_url'] = text_to_image(validated_data['profile_image'])
