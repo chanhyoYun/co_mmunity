@@ -8,3 +8,4 @@ urlpatterns = [
     path("<int:article_id>/",views.ArticleDetailView.as_view()), # 게시글 수정 삭제
     path("likes/<int:article_id>/", views.LikeView.as_view()), #좋아요 기능. 현재 Article모델이 없어서 주석처리
 ]
+
