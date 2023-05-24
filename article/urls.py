@@ -9,3 +9,4 @@ urlpatterns = [
     path("likes/<int:article_id>/", views.LikeView.as_view()),  # 좋아요 기능. 현재 Article모델이 없어서 주석처리
     path("", views.main_page, name="main_page"),  # 메인페이지
 ]
+

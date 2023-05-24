@@ -102,3 +102,4 @@ class LikeView(APIView):  #좋아요 기능. 현재 Article모델이 없어서 �
         else:
             article.likes.add(request.user)
             return Response("like",status=status.HTTP_204_NO_CONTENT)
+
