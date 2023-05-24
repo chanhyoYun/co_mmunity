@@ -12,6 +12,7 @@ class SignupSerializer(serializers.ModelSerializer):
         model = MyUser
         fields = ['id', 'email', 'password', 'profile_image', 'profile_image_url', 'followings']
 
+
     def create(self, validated_data):
         validated_data['profile_image_url'] = text_to_image(validated_data['profile_image'])
         validated_data['password'] = make_password(validated_data['password'])
