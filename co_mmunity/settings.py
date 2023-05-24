@@ -48,6 +48,8 @@ INSTALLED_APPS = [
     "corsheaders",
     "users",
     "article",
+    "co_mmunity",
+    'easy_thumbnails'
 ]
 
 MIDDLEWARE = [
