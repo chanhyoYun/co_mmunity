@@ -1,5 +1,5 @@
 from rest_framework_simplejwt.views import TokenObtainPairView
-from users.serializers import MyTokenObtainPairSerializer, SignupSerializer
+from users.serializers import MyTokenObtainPairSerializer, SignupSerializer, UserViewSerializer
 from rest_framework.views import APIView
 from rest_framework.generics import get_object_or_404
 from rest_framework.response import Response
@@ -7,7 +7,11 @@ from rest_framework import status
 from users.models import MyUser
 from rest_framework.permissions import IsAuthenticated
 
+from article.models import Articles
+from article.serializer import ArticleListSerializer
+
 class SignupView(APIView):
+    serializer_class = SignupSerializer
     def post(self, request):
         serializer = SignupSerializer(data=request.data)
         if serializer.is_valid():
@@ -29,8 +33,12 @@ class ProfileView(APIView):
     def get(self, request, user_id):
         """회원정보 보기"""
         user = get_object_or_404(MyUser, pk=user_id)
-        serializer = SignupSerializer(user)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        serializer = UserViewSerializer(user)
+        articles = Articles.objects.filter(author_id=user_id)
+        article = ArticleListSerializer(articles, many=True)
+        articles_like = Articles.objects.filter(likes__id=user_id)
+        article_like = ArticleListSerializer(articles_like, many=True)
+        return Response({"가입정보":serializer.data, "게시글":article.data, "좋아요 게시글":article_like.data}, status=status.HTTP_200_OK)
 
     def put(self, request, user_id):
         """회원정보 수정하기"""
