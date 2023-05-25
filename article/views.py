@@ -4,6 +4,15 @@ from . serializer import CommentCreateSerializer, ArticleCreateSerializer, Artic
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.generics import get_object_or_404
+from django.shortcuts import render
+from PIL import Image
+
+
+# 메인페이지 게시글 불러오기
+def main_page(request):
+    articles = Articles.objects.all()
+    context = {'articles': articles}
+    return render(request, 'main.html', context)
 
 # Create your views here.
 
