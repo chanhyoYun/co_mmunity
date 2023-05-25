@@ -1,7 +1,5 @@
 from rest_framework import serializers
 from .models import Comments, Articles
-from django.utils.html import mark_safe
-
 
 from users.serializers import UserViewSerializer
 from drf_extra_fields.fields import Base64ImageField
@@ -47,16 +45,8 @@ class ArticleListSerializer(serializers.ModelSerializer):
         fields = ['id', 'title', 'content', 'author', 'created_at', 'updated_at', 'likes', 'image']
 
 
-class ArticleSerializer(serializers.ModelSerializer):
-    thumbnail = serializers.SerializerMethodField()
-
-    def get_thumbnail(self, article):
-        if article.image:
-            image_url = article.image.url
-            thumbnail_url = thumbnail_url(image_url, '250x250', crop='center')
-            return mark_safe(f'<img src="{thumbnail_url}" alt="Thumbnail">')
-        return None
-
+class ArticleSearchSerializer(serializers.ModelSerializer):
+    image = Base64ImageField(required=False)
     class Meta:
-        model = Articles
-        fields = ('id', 'title', 'content', 'thumbnail', 'created_at')
+        model=Articles
+        fields = '__all__'
