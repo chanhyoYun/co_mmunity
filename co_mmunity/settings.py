@@ -50,7 +50,6 @@ INSTALLED_APPS = [
     "users",
     "article",
     "co_mmunity",
-    'easy_thumbnails'
 ]
 
 MIDDLEWARE = [
