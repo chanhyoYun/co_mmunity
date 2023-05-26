@@ -19,7 +19,7 @@ class ArticlesView(APIView):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         
     def get(self, request):
-        articles = Articles.objects.all()
+        articles = Articles.objects.all().order_by("-created_at")
         serializer = ArticleListSerializer(articles, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
             
