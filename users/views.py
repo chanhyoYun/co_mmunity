@@ -43,7 +43,6 @@ class ProfileView(APIView):
     def put(self, request, user_id):
         """회원정보 수정하기"""
         user = get_object_or_404(MyUser, pk=user_id)
-        # 로그인한 유저와 페이지의 유저가 같은지 확인하는 코드 구현 필요
         serializer = SignupSerializer(user, data=request.data)
         if serializer.is_valid():
             serializer.save()

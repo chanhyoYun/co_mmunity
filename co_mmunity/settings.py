@@ -45,12 +45,12 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "rest_framework",
     "rest_framework_simplejwt",
+    'pyttsx3',
     'drf_extra_fields',
     "corsheaders",
     "users",
     "article",
     "co_mmunity",
-    'easy_thumbnails'
 ]
 
 MIDDLEWARE = [
@@ -189,10 +189,3 @@ SIMPLE_JWT = {
 }
 
 CORS_ALLOW_ALL_ORIGINS = True
-
-STATIC_ROOT = BASE_DIR / "static"
-STATIC_URL = "/static/"
-
-MEDIA_ROOT = BASE_DIR / "media"
-MEDIA_URL = "/media/"
-
