@@ -4,7 +4,7 @@ from . serializer import CommentCreateSerializer, ArticleCreateSerializer, Artic
 from rest_framework.response import Response
 from rest_framework import status, filters, generics
 from rest_framework.generics import get_object_or_404
-from PIL import Image
+from article.tts import tts
 
 
 # Create your views here.
@@ -49,7 +49,7 @@ class ArticleDetailView(APIView):
             return Response(status=status.HTTP_204_NO_CONTENT)
         else:
             return Response('권한이 없다.', status=status.HTTP_403_FORBIDDEN)
-
+        
 class CommentsView(APIView):
     def post(self, request, article_id):
         serializer = CommentCreateSerializer(data=request.data)
@@ -104,3 +104,10 @@ class ArticlesSearchView(generics.ListCreateAPIView):
     
     queryset = Articles.objects.all()
     serializer_class = ArticleListSerializer
+    
+class TtsView(APIView):
+    def get(self, request, article_id):
+        article = get_object_or_404(Articles, id=article_id)
+        serializer = ArticleSerializer(article)
+        tts(serializer.data['content'])
+        return Response("tts", status=status.HTTP_200_OK)
