@@ -5,8 +5,11 @@ from django.contrib.auth.hashers import make_password
 from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
 from drf_extra_fields.fields import Base64ImageField
-
 from users.text_to_image import text_to_image
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
+
 
 class SignupSerializer(serializers.ModelSerializer):
     profile_image_image = Base64ImageField(required=False)
@@ -21,6 +24,8 @@ class SignupSerializer(serializers.ModelSerializer):
         return super().create(validated_data)
 
     def validate_email(self, email):
+        if User.objects.filter(email=email).exists():
+            raise serializers.ValidationError('이미 사용 중인 이메일입니다.')
         try:
             validate_email(email)
             return email
