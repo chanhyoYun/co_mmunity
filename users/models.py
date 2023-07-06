@@ -26,6 +26,18 @@ class MyUserManager(BaseUserManager):
 
 
 class MyUser(AbstractBaseUser):
+    """유저 모델
+    
+    Attributes:
+        email (EmailField) : 로그인 이메일
+        profile_image (CharField) : DALL-E(AI)를 통한 프로필 이미지 생성 키워드
+        profile_image_url (URLField) : DALL-E(AI)를 통한 프로필 이미지 URL
+        profile_image_image (ImageField) : 프로필 이미지 생성이 아닌 프로필 이미지 직접 업로드
+        followings (ManyToManyField) : 유저 팔로잉
+        is_active (BooleanField) : 활성화 여부
+        is_admin (BooleanField) : 관리자 여부
+    
+    """
     email = models.EmailField(
         verbose_name="email address",
         max_length=255,

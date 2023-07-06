@@ -1,6 +1,5 @@
 from users.models import MyUser
 from rest_framework import serializers
-from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from django.contrib.auth.hashers import make_password
 from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
@@ -12,6 +11,10 @@ User = get_user_model()
 
 
 class SignupSerializer(serializers.ModelSerializer):
+    """유저 시리얼라이저
+
+    회원가입, 회원정보 수정에 사용됨.
+    """
     profile_image_image = Base64ImageField(required=False)
     class Meta:
         model = MyUser
@@ -40,6 +43,10 @@ class SignupSerializer(serializers.ModelSerializer):
         return instance
     
 class UserViewSerializer(serializers.ModelSerializer):
+    """유저 정보 보기 시리얼라이저
+
+    단순 유저정보를 불러오기 위한 시리얼라이저
+    """
     followings = SignupSerializer(many=True)
     class Meta:
         model = MyUser
@@ -48,9 +55,3 @@ class UserViewSerializer(serializers.ModelSerializer):
     
     def __str__(self):
         return self.email
-
-class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
-    @classmethod
-    def get_token(cls, user):
-        token = super().get_token(user)
-        return token
