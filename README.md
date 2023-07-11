@@ -26,6 +26,7 @@
 ## 4. 라이브러리
 - Django REST framework - 3.14.0
 - simplejwt - 5.2.2
+- openai - 0.27.7
 
 ## 5. 프론트엔드
 - 레포지토리 https://github.com/chanhyoYun/co_mmu_fornt
